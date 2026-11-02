@@ -1,205 +1,522 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#09090b">
-<meta name="description" content="Explora y descarga diseños de los catálogos de TERSHOP ONLINE.">
+<meta name="description" content="Explora los catálogos de TERSHOP ONLINE.">
 <title>Catálogos | TERSHOP ONLINE</title>
+
 <style>
-:root{--red:#ef382d;--red2:#ff594e;--ink:#08090b;--panel:rgba(12,13,16,.88);--line:rgba(255,255,255,.13);--muted:#b6b6bb;--white:#f7f7f8}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#08090b url('assets/fondo-tela-negra.webp') center top/cover fixed no-repeat;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.68),rgba(0,0,0,.84) 45%,rgba(0,0,0,.92));z-index:-1}
-button,input{font:inherit}.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
-header{padding:22px 0 10px;text-align:center}
-.logo{width:min(190px,46vw);height:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 8px 22px #000)}
-.kicker{font-size:.72rem;letter-spacing:.28em;color:#ff6258;text-transform:uppercase;font-weight:800}
-h1{font-size:clamp(1.8rem,4vw,3rem);margin:9px 0 8px;letter-spacing:.04em;text-transform:uppercase}
-.sub{color:#c7c7ca;margin:0 auto;max-width:650px;line-height:1.6}
-main{padding:24px 0 60px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 18px 55px #0008}
-.toolbar{padding:18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:18px}
-.searchbox{display:flex;align-items:center;gap:10px;background:#17181c;border:1px solid #38393f;border-radius:12px;padding:0 14px;min-height:48px}
-.searchbox input{width:100%;background:transparent;border:0;outline:0;color:white;padding:13px 0}
-.searchbox input::placeholder{color:#999}
-.count{font-size:.85rem;color:var(--muted);white-space:nowrap}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 2px 13px}
-.section-head h2{font-size:1.12rem;margin:0;text-transform:uppercase;letter-spacing:.08em}
-.section-head p{margin:5px 0 0;color:var(--muted);font-size:.86rem}
-.catalog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}
-.catalog-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:16px 15px;color:#fff;background:linear-gradient(135deg,#191a1f,#0c0d10);border:1px solid #393a40;border-radius:14px;cursor:pointer;transition:.2s;min-height:76px}
-.catalog-btn:hover,.catalog-btn.active{border-color:var(--red);background:linear-gradient(135deg,#321411,#121215);transform:translateY(-2px);box-shadow:0 8px 24px #e9342b24}
-.catalog-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#ef382d1b;color:#ff6258;font-size:1.25rem;flex:none}
-.catalog-name{font-weight:750;font-size:.94rem;line-height:1.25}
-.catalog-small{display:block;color:#aaa;font-size:.72rem;font-weight:500;margin-top:4px}
-.gallery-panel{margin-top:22px;padding:20px}
-.gallery-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.gallery-top h2{margin:0;font-size:1.25rem}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid #55565d;color:white;background:#202126;padding:10px 14px;border-radius:10px;text-decoration:none;cursor:pointer;font-weight:700;font-size:.82rem}
-.btn.primary{background:var(--red);border-color:var(--red);color:white}
-.btn:hover{filter:brightness(1.13)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:13px}
-.design{overflow:hidden;border-radius:13px;background:#15161a;border:1px solid #34353a}
-.thumb{width:100%;aspect-ratio:1/1.12;object-fit:contain;background:#0b0b0d;display:block;cursor:zoom-in}
-.design-info{padding:10px}
-.design-name{font-size:.8rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:9px}
-.design-actions{display:flex;gap:7px}
-.design-actions .btn{padding:8px 9px;font-size:.73rem;flex:1;text-align:center}
-.empty{padding:38px 16px;text-align:center;color:#bcbcc2;border:1px dashed #484950;border-radius:14px;grid-column:1/-1}
-.status{color:#c7c7cc;font-size:.87rem;line-height:1.55;padding:15px;background:#17181c;border:1px solid #35363b;border-radius:12px}
-.status.error{border-color:#a33b35;color:#ffb7b1}
-.hidden{display:none!important}
-footer{text-align:center;color:#999;font-size:.78rem;padding:26px 10px 34px}
-footer strong{color:#eee}
-.modal{position:fixed;inset:0;background:#000e;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}
-.modal.open{display:flex}
-.modal-box{max-width:min(900px,100%);max-height:95vh;background:#101115;border:1px solid #444;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px}
-.modal img{max-width:100%;max-height:78vh;object-fit:contain}
-.modal-bar{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.modal-title{font-size:.9rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(max-width:650px){.wrap{width:min(100% - 22px,1180px)}.toolbar{grid-template-columns:1fr}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.catalog-btn{padding:12px 10px;min-height:70px;gap:8px}.catalog-icon{width:34px;height:34px}.catalog-name{font-size:.8rem}.gallery-panel{padding:13px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.thumb{aspect-ratio:1/1.15}}
+:root {
+  --red: #ef382d;
+  --red2: #ff594e;
+  --ink: #08090b;
+  --panel: rgba(12,13,16,.88);
+  --line: rgba(255,255,255,.13);
+  --muted: #b6b6bb;
+  --white: #f7f7f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--white);
+  font-family: Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  background: #08090b url('assets/fondo-tela-negra.webp') center top/cover fixed no-repeat;
+  min-height: 100vh;
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.68),
+    rgba(0,0,0,.84) 45%,
+    rgba(0,0,0,.92)
+  );
+  z-index: -1;
+}
+
+input {
+  font: inherit;
+}
+
+.wrap {
+  width: min(1180px,calc(100% - 32px));
+  margin: auto;
+}
+
+header {
+  padding: 22px 0 10px;
+  text-align: center;
+}
+
+.logo {
+  width: min(190px,46vw);
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+  filter: drop-shadow(0 8px 22px #000);
+}
+
+.kicker {
+  font-size: .72rem;
+  letter-spacing: .28em;
+  color: #ff6258;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(1.8rem,4vw,3rem);
+  margin: 9px 0 8px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.sub {
+  color: #c7c7ca;
+  margin: 0 auto;
+  max-width: 650px;
+  line-height: 1.6;
+}
+
+main {
+  padding: 24px 0 60px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 55px #0008;
+}
+
+.toolbar {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #17181c;
+  border: 1px solid #38393f;
+  border-radius: 12px;
+  padding: 0 14px;
+  min-height: 48px;
+}
+
+.searchbox input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+  padding: 13px 0;
+}
+
+.searchbox input::placeholder {
+  color: #999;
+}
+
+.count {
+  font-size: .85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  margin: 28px 2px 13px;
+}
+
+.section-head h2 {
+  font-size: 1.12rem;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.section-head p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: .86rem;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(205px,1fr));
+  gap: 12px;
+}
+
+.catalog-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 16px 15px;
+  color: #fff;
+  background: linear-gradient(135deg,#191a1f,#0c0d10);
+  border: 1px solid #393a40;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: .2s;
+  min-height: 76px;
+  text-decoration: none;
+}
+
+.catalog-btn:hover {
+  border-color: var(--red);
+  background: linear-gradient(135deg,#321411,#121215);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px #e9342b24;
+}
+
+.catalog-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #ef382d1b;
+  color: #ff6258;
+  font-size: 1.25rem;
+  flex: none;
+}
+
+.catalog-name {
+  font-weight: 750;
+  font-size: .94rem;
+  line-height: 1.25;
+}
+
+.catalog-small {
+  display: block;
+  color: #aaa;
+  font-size: .72rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.empty {
+  padding: 38px 16px;
+  text-align: center;
+  color: #bcbcc2;
+  border: 1px dashed #484950;
+  border-radius: 14px;
+  grid-column: 1/-1;
+}
+
+footer {
+  text-align: center;
+  color: #999;
+  font-size: .78rem;
+  padding: 26px 10px 34px;
+}
+
+footer strong {
+  color: #eee;
+}
+
+@media(max-width:650px) {
+  .wrap {
+    width: min(100% - 22px,1180px);
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 9px;
+  }
+
+  .catalog-btn {
+    padding: 12px 10px;
+    min-height: 70px;
+    gap: 8px;
+  }
+
+  .catalog-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .catalog-name {
+    font-size: .8rem;
+  }
+}
 </style>
 </head>
-<body>
-<header class="wrap">
-  <img class="logo" src="assets/logo-tershop.webp" alt="TERSHOP TIENDA ONLINE">
-  <div class="kicker">Colección de diseños</div>
-  <h1>Explora nuestros catálogos</h1>
-  <p class="sub">Encuentra tu diseño favorito, visualízalo en grande y descárgalo para compartirlo con nosotros.</p>
-</header>
-<main class="wrap">
-  <section class="panel toolbar">
-    <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar un catálogo o diseño..." autocomplete="off"></label>
-    <div class="count" id="catalogCount">17 catálogos disponibles</div>
-  </section>
-  <details class="panel" style="padding:13px 16px;margin-bottom:18px">
-    <summary style="cursor:pointer;color:#c9c9ce;font-size:.82rem;font-weight:700">⚙ Configuración de conexión (administrador)</summary>
-    <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:12px">
-      <input id="apiKeyInput" type="password" autocomplete="off" placeholder="Pega aquí tu clave API de Google Drive" style="flex:1;min-width:220px;background:#17181c;border:1px solid #45464d;border-radius:9px;padding:11px;color:white">
-      <button id="saveApiKey" class="btn primary">Guardar clave</button>
-      <button id="clearApiKey" class="btn">Eliminar clave</button>
-    </div>
-    <p style="margin:9px 0 0;color:#999;font-size:.75rem;line-height:1.5">La clave queda guardada en este navegador. Para publicar el catálogo, configura la clave con restricciones de dominio y solo acceso a Google Drive API, siguiendo LEEME.md.</p>
-  </details>
-  <div class="section-head"><div><h2>Selecciona un catálogo</h2><p>Ordenados alfabéticamente</p></div></div>
-  <section id="catalogGrid" class="catalog-grid" aria-label="Catálogos"></section>
-  <section id="gallery" class="panel gallery-panel hidden">
-    <div class="gallery-top">
-      <div><div class="kicker">Galería seleccionada</div><h2 id="galleryTitle">Catálogo</h2></div>
-      <div class="actions"><a id="driveFolder" class="btn" target="_blank" rel="noopener">Abrir carpeta en Drive ↗</a><button id="closeGallery" class="btn">Ver todos</button></div>
-    </div>
-    <div id="galleryStatus" class="status">Preparando galería…</div>
-    <div id="designGrid" class="cards"></div>
-  </section>
-</main>
-<footer class="wrap">© <span id="year"></span> <strong>TERSHOP ONLINE</strong> · Catálogo digital de diseños</footer>
-<div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="Vista ampliada">
-  <div class="modal-box"><div class="modal-bar"><span id="modalTitle" class="modal-title"></span><button id="modalClose" class="btn">Cerrar ✕</button></div><img id="modalImage" alt="Diseño ampliado"><div class="modal-bar"><span></span><a id="modalDownload" class="btn primary" target="_blank" rel="noopener">Descargar diseño</a></div></div>
-</div>
-<script>
-const CATALOGS = [{"name": "Catálogo Aura", "id": "1bY1XnP1NST4_-d4TpKDF08x5V7jsDhQu"}, {"name": "Catálogo Caballero", "id": "1hFWBYi8MAR9h73q4A1H7fNEzx3s7eIRA"}, {"name": "Catálogo Carnaval", "id": "1fzAeOCW_nY77IsZhLjxecKxtcrS-UaXY"}, {"name": "Catálogo Chucherías Venezolanas", "id": "1hmXEQyeoknsnEQwr7H45pelgD-pEfGLl"}, {"name": "Catálogo Divina Pastora", "id": "1G29ro1aqsH1YGFKuGBexJmkbkC2PN4hU"}, {"name": "Catálogo Día de las Madres", "id": "15yex68AkWUwhT9eLZrFXk5OUe8zLFnQB"}, {"name": "Catálogo Día del Maestro", "id": "13F5O3k8XKWV-Ygg-_jKosCxniWmMfofa"}, {"name": "Catálogo Día del Padre", "id": "1W1f9ur0bLn3RhoaDuD_FjXgEZqyym8U7"}, {"name": "Catálogo Halloween", "id": "1q-yT_-V9ShTO5mCcZIRC7_Q3_QwRGRaw"}, {"name": "Catálogo José Gregorio Hernández", "id": "1MEiq4PJVCjSlqnMmhs7r5KBj9BVVPeBc"}, {"name": "Catálogo Navidad", "id": "1nhu0DZK9a9mahTHe4jP5PqfZbzRsusPT"}, {"name": "Catálogo para Niños", "id": "17cY6Xln0QZBO05znJA2K5czeP5wzKsOq"}, {"name": "Catálogo Religioso", "id": "1DTh1zJsbfnytnrNDRY8MSOag_7Rp-EFX"}, {"name": "Catálogo San Miguel", "id": "1Antj3zkczws1WLx2csczq9n1T8POl7_O"}, {"name": "Catálogo Semana Santa", "id": "1BwUCiVlfmbGpN0gEGZFRi0bIgvzMHzh8"}, {"name": "Catálogo Vinotinto", "id": "1_DdQ7qhkZWmJeojp2F4kPpuHdO44Quo8"}, {"name": "Catálogo Virgen del Valle", "id": "16aw8fvFGbrCqPllhhAFu9l7SrOBbDAQE"}];
-const API_KEY_STORAGE = "TERSHOP - Google Drive Catalogos";
-// Después de crear y restringir tu clave, pégala entre las comillas.
-// La clave será visible en el código público: restringe el uso al dominio de GitHub Pages
-// y limita la clave únicamente a Google Drive API.
-const DRIVE_API_KEY = "AIzaSyArYeN4OUGavv3bV3L6-ndndKmWJAlUsQs";
-const $ = s => document.querySelector(s);
-let activeCatalog = null, allFiles = [], filteredCatalogs = CATALOGS.slice();
 
-function normalize(s){return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();}
-function folderUrl(id){return `https://drive.google.com/drive/folders/${id}?usp=sharing`;}
-function renderCatalogs(){
-  const q=normalize($("#search").value);
-  filteredCatalogs=CATALOGS.filter(c=>normalize(c.name).includes(q));
-  $("#catalogCount").textContent=`${filteredCatalogs.length} de ${CATALOGS.length} catálogos`;
-  $("#catalogGrid").innerHTML="";
-  filteredCatalogs.forEach(c=>{
-    const b=document.createElement("button");b.className="catalog-btn"+(activeCatalog?.id===c.id?" active":"");
-    b.innerHTML=`<span class="catalog-icon">▤</span><span class="catalog-name">${escapeHtml(c.name)}<span class="catalog-small">Ver diseños del catálogo →</span></span>`;
-    b.addEventListener("click",()=>openCatalog(c));$("#catalogGrid").appendChild(b);
+<body>
+
+<header class="wrap">
+  <img
+    class="logo"
+    src="assets/logo-tershop.webp"
+    alt="TERSHOP TIENDA ONLINE"
+  >
+
+  <div class="kicker">Colección de diseños</div>
+
+  <h1>Explora nuestros catálogos</h1>
+
+  <p class="sub">
+    Encuentra tu diseño favorito y accede directamente
+    a nuestros catálogos en Google Drive.
+  </p>
+</header>
+
+<main class="wrap">
+
+  <section class="panel toolbar">
+
+    <label class="searchbox">
+      <span aria-hidden="true">⌕</span>
+
+      <input
+        id="search"
+        type="search"
+        placeholder="Buscar un catálogo..."
+        autocomplete="off"
+      >
+    </label>
+
+    <div class="count" id="catalogCount">
+      17 catálogos disponibles
+    </div>
+
+  </section>
+
+  <div class="section-head">
+    <div>
+      <h2>Selecciona un catálogo</h2>
+      <p>Ordenados alfabéticamente</p>
+    </div>
+  </div>
+
+  <section
+    id="catalogGrid"
+    class="catalog-grid"
+    aria-label="Catálogos"
+  ></section>
+
+</main>
+
+<footer class="wrap">
+  © <span id="year"></span>
+  <strong>TERSHOP ONLINE</strong>
+  · Catálogo digital de diseños
+</footer>
+
+<script>
+
+// CATÁLOGOS DE TERSHOP ONLINE
+
+const CATALOGS = [
+
+  {
+    name: "Catálogo Aura",
+    id: "1bY1XnP1NST4_-d4TpKDF08x5V7jsDhQu"
+  },
+
+  {
+    name: "Catálogo Caballero",
+    id: "1hFWBYi8MAR9h73q4A1H7fNEzx3s7eIRA"
+  },
+
+  {
+    name: "Catálogo Carnaval",
+    id: "1fzAeOCW_nY77IsZhLjxecKxtcrS-UaXY"
+  },
+
+  {
+    name: "Catálogo Chucherías Venezolanas",
+    id: "1hmXEQyeoknsnEQwr7H45pelgD-pEfGLl"
+  },
+
+  {
+    name: "Catálogo Día de las Madres",
+    id: "15yex68AkWUwhT9eLZrFXk5OUe8zLFnQB"
+  },
+
+  {
+    name: "Catálogo Día del Maestro",
+    id: "13F5O3k8XKWV-Ygg-_jKosCxniWmMfofa"
+  },
+
+  {
+    name: "Catálogo Día del Padre",
+    id: "1W1f9ur0bLn3RhoaDuD_FjXgEZqyym8U7"
+  },
+
+  {
+    name: "Catálogo Divina Pastora",
+    id: "1G29ro1aqsH1YGFKuGBexJmkbkC2PN4hU"
+  },
+
+  {
+    name: "Catálogo Halloween",
+    id: "1q-yT_-V9ShTO5mCcZIRC7_Q3_QwRGRaw"
+  },
+
+  {
+    name: "Catálogo José Gregorio Hernández",
+    id: "1MEiq4PJVCjSlqnMmhs7r5KBj9BVVPeBc"
+  },
+
+  {
+    name: "Catálogo Navidad",
+    id: "1nhu0DZK9a9mahTHe4jP5PqfZbzRsusPT"
+  },
+
+  {
+    name: "Catálogo para Niños",
+    id: "17cY6Xln0QZBO05znJA2K5czeP5wzKsOq"
+  },
+
+  {
+    name: "Catálogo Religioso",
+    id: "1DTh1zJsbfnytnrNDRY8MSOag_7Rp-EFX"
+  },
+
+  {
+    name: "Catálogo San Miguel",
+    id: "1Antj3zkczws1WLx2csczq9n1T8POl7_O"
+  },
+
+  {
+    name: "Catálogo Semana Santa",
+    id: "1BwUCiVlfmbGpN0gEGZFRi0bIgvzMHzh8"
+  },
+
+  {
+    name: "Catálogo Vinotinto",
+    id: "1_DdQ7qhkZWmJeojp2F4kPpuHdO44Quo8"
+  },
+
+  {
+    name: "Catálogo Virgen del Valle",
+    id: "16aw8fvFGbrCqPllhhAFu9l7SrOBbDAQE"
+  }
+
+];
+
+// NORMALIZAR TEXTO PARA EL BUSCADOR
+
+function normalize(text) {
+  return (text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+// CONSTRUIR ENLACE DE GOOGLE DRIVE
+
+function folderUrl(id) {
+  return `https://drive.google.com/drive/folders/${id}?usp=sharing`;
+}
+
+// MOSTRAR CATÁLOGOS
+
+function renderCatalogs() {
+
+  const search = document.getElementById("search");
+
+  const grid = document.getElementById("catalogGrid");
+
+  const count = document.getElementById("catalogCount");
+
+  const query = normalize(search.value);
+
+  const filtered = CATALOGS.filter(catalog =>
+    normalize(catalog.name).includes(query)
+  );
+
+  count.textContent =
+    `${filtered.length} de ${CATALOGS.length} catálogos`;
+
+  grid.innerHTML = "";
+
+  filtered.forEach(catalog => {
+
+    const link = document.createElement("a");
+
+    link.className = "catalog-btn";
+
+    link.href = folderUrl(catalog.id);
+
+    link.target = "_blank";
+
+    link.rel = "noopener noreferrer";
+
+    link.innerHTML = `
+      <span class="catalog-icon">▤</span>
+
+      <span class="catalog-name">
+        ${catalog.name}
+
+        <span class="catalog-small">
+          Abrir diseños en Drive →
+        </span>
+      </span>
+    `;
+
+    grid.appendChild(link);
+
   });
-  if(!filteredCatalogs.length) $("#catalogGrid").innerHTML='<div class="empty">No encontramos catálogos con ese nombre.</div>';
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
-function setStatus(msg,error=false){$("#galleryStatus").textContent=msg;$("#galleryStatus").classList.toggle("error",error);}
-async function openCatalog(c){
-  activeCatalog=c;renderCatalogs();$("#gallery").classList.remove("hidden");$("#galleryTitle").textContent=c.name;
-  $("#driveFolder").href=folderUrl(c.id);$("#designGrid").innerHTML="";setStatus("Conectando con Google Drive…");
-  $("#gallery").scrollIntoView({behavior:"smooth",block:"start"});
-  const key=localStorage.getItem(API_KEY_STORAGE) || DRIVE_API_KEY;
-  if(!key || key.startsWith("PEGA_AQUI_")){
-    setStatus("Para cargar automáticamente las miniaturas y los nombres de las imágenes, falta configurar una clave API de Google Drive. Mientras tanto, puedes abrir la carpeta original con el botón «Abrir carpeta en Drive». Consulta el archivo LEEME incluido en el proyecto.",true);return;
+
+  if (filtered.length === 0) {
+
+    grid.innerHTML = `
+      <div class="empty">
+        No encontramos catálogos con ese nombre.
+      </div>
+    `;
+
   }
-  try{
-    const files=await listFolderImages(c.id,key);allFiles=files;
-    if(!files.length){setStatus("No se encontraron imágenes en esta carpeta. Comprueba que la carpeta esté compartida para cualquier persona con el enlace como lectora.");return;}
-    setStatus(`${files.length} diseños encontrados. Selecciona una imagen para ampliarla o descargarla.`);
-    renderDesigns(files);
-  }catch(e){
-    setStatus("No se pudo leer esta carpeta. Verifica que la clave API sea válida, que Drive API esté habilitada y que la carpeta permita acceso de lectura mediante enlace. También puedes abrirla directamente en Drive. Detalle: "+e.message,true);
-  }
+
 }
-async function listFolderImages(folderId,key){
-  let out=[],token="";
-  do{
-    const params=new URLSearchParams({q:`'${folderId}' in parents and trashed=false`,key, pageSize:"1000",fields:"nextPageToken,files(id,name,mimeType,thumbnailLink,webViewLink)",orderBy:"name"});
-    if(token)params.set("pageToken",token);
-    const r=await fetch("https://www.googleapis.com/drive/v3/files?"+params.toString());
-    const data=await r.json();
-    if(!r.ok)throw new Error(data.error?.message||`HTTP ${r.status}`);
-    out.push(...(data.files||[]).filter(f=>f.mimeType?.startsWith("image/")));
-    token=data.nextPageToken||"";
-  }while(token);
-  return out;
-}
-function imageUrl(id,size=900){return `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w${size}`;}
-function downloadUrl(id){return `https://drive.google.com/uc?export=download&id=${encodeURIComponent(id)}`;}
-function renderDesigns(files){
-  $("#designGrid").innerHTML="";
-  files.forEach(f=>{
-    const card=document.createElement("article");card.className="design";
-    const img=document.createElement("img");img.className="thumb";img.loading="lazy";img.alt=f.name;img.src=imageUrl(f.id,500);img.addEventListener("click",()=>showModal(f));
-    const info=document.createElement("div");info.className="design-info";
-    const name=document.createElement("div");name.className="design-name";name.title=f.name;name.textContent=f.name;
-    const actions=document.createElement("div");actions.className="design-actions";
-    const view=document.createElement("button");view.className="btn";view.textContent="Ampliar";view.addEventListener("click",()=>showModal(f));
-    const dl=document.createElement("a");dl.className="btn primary";dl.textContent="Descargar";dl.href=downloadUrl(f.id);dl.target="_blank";dl.rel="noopener";
-    actions.append(view,dl);info.append(name,actions);card.append(img,info);$("#designGrid").append(card);
-  });
-}
-function showModal(f){$("#modalTitle").textContent=f.name;$("#modalImage").src=imageUrl(f.id,1600);$("#modalDownload").href=downloadUrl(f.id);$("#modal").classList.add("open");}
-function closeModal(){$("#modal").classList.remove("open");$("#modalImage").src="";}
-$("#search").addEventListener("input",()=>{
-  const q=normalize($("#search").value);
-  if(activeCatalog && !normalize(activeCatalog.name).includes(q)){
-    $("#gallery").classList.add("hidden");activeCatalog=null;
-  }
-  renderCatalogs();
-  if(activeCatalog && allFiles.length){
-    const matches=allFiles.filter(f=>normalize(f.name).includes(q));
-    renderDesigns(matches);setStatus(`${matches.length} diseños coinciden con la búsqueda.`);
-  }
-});
-$("#closeGallery").addEventListener("click",()=>{$("#gallery").classList.add("hidden");activeCatalog=null;allFiles=[];renderCatalogs();});
-$("#modalClose").addEventListener("click",closeModal);
-$("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))closeModal();});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-$("#year").textContent=new Date().getFullYear();
-$("#apiKeyInput").value=localStorage.getItem(API_KEY_STORAGE)||"";
-$("#saveApiKey").addEventListener("click",()=>{
-  const key=$("#apiKeyInput").value.trim();
-  if(!key){setStatus("Introduce una clave API válida en Configuración.",true);return;}
-  localStorage.setItem(API_KEY_STORAGE,key);
-  alert("Clave guardada en este navegador. Ya puedes abrir un catálogo.");
-  if(activeCatalog)openCatalog(activeCatalog);
-});
-$("#clearApiKey").addEventListener("click",()=>{
-  localStorage.removeItem(API_KEY_STORAGE);$("#apiKeyInput").value="";
-  alert("Clave eliminada de este navegador.");
-});
+
+// BUSCADOR
+
+document
+  .getElementById("search")
+  .addEventListener("input", renderCatalogs);
+
+// AÑO AUTOMÁTICO
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+// INICIAR CATÁLOGO
+
 renderCatalogs();
+
 </script>
+
 </body>
 </html>
