@@ -1,522 +1,354 @@
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#09090b">
-<meta name="description" content="Explora los catálogos de TERSHOP ONLINE.">
-<title>Catálogos | TERSHOP ONLINE</title>
-
-<style>
-:root {
-  --red: #ef382d;
-  --red2: #ff594e;
-  --ink: #08090b;
-  --panel: rgba(12,13,16,.88);
-  --line: rgba(255,255,255,.13);
-  --muted: #b6b6bb;
-  --white: #f7f7f8;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  color: var(--white);
-  font-family: Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
-  background: #08090b url('fondo-tela-negra.webp') center top/cover fixed no-repeat;
-  min-height: 100vh;
-}
-
-body:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0,0,0,.68),
-    rgba(0,0,0,.84) 45%,
-    rgba(0,0,0,.92)
-  );
-  z-index: -1;
-}
-
-input {
-  font: inherit;
-}
-
-.wrap {
-  width: min(1180px,calc(100% - 32px));
-  margin: auto;
-}
-
-header {
-  padding: 22px 0 10px;
-  text-align: center;
-}
-
-.logo {
-  width: min(190px,46vw);
-  height: auto;
-  display: block;
-  margin: 0 auto 8px;
-  filter: drop-shadow(0 8px 22px #000);
-}
-
-.kicker {
-  font-size: .72rem;
-  letter-spacing: .28em;
-  color: #ff6258;
-  text-transform: uppercase;
-  font-weight: 800;
-}
-
-h1 {
-  font-size: clamp(1.8rem,4vw,3rem);
-  margin: 9px 0 8px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.sub {
-  color: #c7c7ca;
-  margin: 0 auto;
-  max-width: 650px;
-  line-height: 1.6;
-}
-
-main {
-  padding: 24px 0 60px;
-}
-
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 18px 55px #0008;
-}
-
-.toolbar {
-  padding: 18px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.searchbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #17181c;
-  border: 1px solid #38393f;
-  border-radius: 12px;
-  padding: 0 14px;
-  min-height: 48px;
-}
-
-.searchbox input {
-  width: 100%;
-  background: transparent;
-  border: 0;
-  outline: 0;
-  color: white;
-  padding: 13px 0;
-}
-
-.searchbox input::placeholder {
-  color: #999;
-}
-
-.count {
-  font-size: .85rem;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 12px;
-  margin: 28px 2px 13px;
-}
-
-.section-head h2 {
-  font-size: 1.12rem;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-
-.section-head p {
-  margin: 5px 0 0;
-  color: var(--muted);
-  font-size: .86rem;
-}
-
-.catalog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(205px,1fr));
-  gap: 12px;
-}
-
-.catalog-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: left;
-  padding: 16px 15px;
-  color: #fff;
-  background: linear-gradient(135deg,#191a1f,#0c0d10);
-  border: 1px solid #393a40;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: .2s;
-  min-height: 76px;
-  text-decoration: none;
-}
-
-.catalog-btn:hover {
-  border-color: var(--red);
-  background: linear-gradient(135deg,#321411,#121215);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px #e9342b24;
-}
-
-.catalog-icon {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: #ef382d1b;
-  color: #ff6258;
-  font-size: 1.25rem;
-  flex: none;
-}
-
-.catalog-name {
-  font-weight: 750;
-  font-size: .94rem;
-  line-height: 1.25;
-}
-
-.catalog-small {
-  display: block;
-  color: #aaa;
-  font-size: .72rem;
-  font-weight: 500;
-  margin-top: 4px;
-}
-
-.empty {
-  padding: 38px 16px;
-  text-align: center;
-  color: #bcbcc2;
-  border: 1px dashed #484950;
-  border-radius: 14px;
-  grid-column: 1/-1;
-}
-
-footer {
-  text-align: center;
-  color: #999;
-  font-size: .78rem;
-  padding: 26px 10px 34px;
-}
-
-footer strong {
-  color: #eee;
-}
-
-@media(max-width:650px) {
-  .wrap {
-    width: min(100% - 22px,1180px);
-  }
-
-  .toolbar {
-    grid-template-columns: 1fr;
-  }
-
-  .catalog-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 9px;
-  }
-
-  .catalog-btn {
-    padding: 12px 10px;
-    min-height: 70px;
-    gap: 8px;
-  }
-
-  .catalog-icon {
-    width: 34px;
-    height: 34px;
-  }
-
-  .catalog-name {
-    font-size: .8rem;
-  }
-}
-</style>
-</head>
-
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090b">
+<meta name="description" content="Explora los catálogos de diseños, consulta precios y aprende sobre sublimación y DTF con Tershop Online."><meta name="robots" content="index,follow">
+<title>Tershop Online | Catálogos, costos y aprende</title><link rel="preload" as="image" href="fondo-tela-negra.webp"><style>
+:root{--red:#ef382d;--ink:#08090b;--panel:rgba(12,13,16,.9);--line:rgba(255,255,255,.14);--muted:#b6b6bb;--white:#f7f7f8;--blue:#168cff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--white);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#08090b url("fondo-tela-negra.webp") center top/cover fixed no-repeat}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.68),rgba(0,0,0,.86) 48%,rgba(0,0,0,.94));z-index:-1;pointer-events:none}
+a{color:inherit}button,input{font:inherit}.wrap{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+.site-header{padding:22px 0 10px;text-align:center}.logo{width:min(190px,46vw);height:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 8px 22px #000)}
+.kicker{font-size:.72rem;letter-spacing:.28em;color:#ff6258;text-transform:uppercase;font-weight:800}
+h1{font-size:clamp(1.8rem,4vw,3rem);margin:9px 0 8px;letter-spacing:.04em;text-transform:uppercase}.subtitle{color:#c7c7ca;margin:0 auto;max-width:680px;line-height:1.6}
+main{padding:22px 0 48px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 18px 55px #0008}
+.tabs{display:flex;flex-wrap:wrap;gap:9px;padding:12px;margin:20px auto 18px}.tab-btn{flex:1 1 150px;min-height:48px;border:1px solid #414148;border-radius:12px;background:#17181c;color:#eee;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.tab-btn:hover{border-color:var(--red);transform:translateY(-1px)}.tab-btn[aria-selected=true]{background:linear-gradient(135deg,#a91f19,#e9362b);border-color:#ff6258;color:#fff}
+.tab-panel[hidden]{display:none!important}.toolbar{padding:18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:18px}
+.searchbox{display:flex;align-items:center;gap:10px;background:#17181c;border:1px solid #38393f;border-radius:12px;padding:0 14px;min-height:48px}
+.searchbox input{width:100%;background:transparent;border:0;outline:0;color:white;padding:13px 0}.searchbox input::placeholder{color:#999}.count{font-size:.85rem;color:var(--muted);white-space:nowrap}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 2px 13px}.section-head h2{font-size:1.12rem;margin:0;text-transform:uppercase;letter-spacing:.08em}.section-head p{margin:5px 0 0;color:var(--muted);font-size:.86rem}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px}.catalog-btn{display:flex;align-items:center;gap:12px;text-align:left;padding:16px 15px;color:#fff;background:linear-gradient(135deg,#191a1f,#0c0d10);border:1px solid #393a40;border-radius:14px;transition:border-color .2s,transform .2s,box-shadow .2s;min-height:76px;text-decoration:none}
+.catalog-btn:hover{border-color:var(--red);background:linear-gradient(135deg,#321411,#121215);transform:translateY(-2px);box-shadow:0 8px 24px #e9342b24}.catalog-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:#ef382d1b;color:#ff6258;font-size:1.25rem;flex:none}
+.catalog-name{font-weight:750;font-size:.94rem;line-height:1.25}.catalog-small{display:block;color:#aaa;font-size:.72rem;font-weight:500;margin-top:4px}.empty{padding:38px 16px;text-align:center;color:#bcbcc2;border:1px dashed #484950;border-radius:14px;grid-column:1/-1}
+.info-section{max-width:1000px;margin:0 auto;padding:22px 0 8px}.info-intro{text-align:center;margin:4px auto 24px;max-width:720px}.eyebrow{font-size:.72rem;letter-spacing:.2em;color:#ff6258;font-weight:800}
+.info-intro h2{font-size:clamp(1.5rem,3vw,2.3rem);margin:9px 0}.info-intro p{color:#c8c8cd;line-height:1.6}.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.price-card,.notice{background:linear-gradient(145deg,rgba(28,29,34,.97),rgba(12,13,16,.97));border:1px solid #3a3b42;border-radius:16px;padding:19px;box-shadow:0 12px 30px #0004}
+.price-card h3,.notice h3{margin:0 0 5px;font-size:1.02rem}.range{color:#aaa;font-size:.88rem;margin:0 0 15px}.price-line{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:10px 0;border-top:1px solid #ffffff17;color:#ddd}
+.price-line strong{font-size:1.05rem;color:#fff;white-space:nowrap}.notice{margin-top:15px;border-left:4px solid var(--red)}.notice p{color:#d0d0d4;line-height:1.65;margin-bottom:0}
+.cost-contact{text-align:center;color:#ddd;margin:22px 0}.cost-contact a{color:#ff6b62;font-weight:800}
+.site-footer{text-align:center;color:#a5a5ab;font-size:.85rem;padding:26px 10px 34px;line-height:1.8}.site-footer strong{color:#eee}.brand-credit{color:var(--blue)!important;font-weight:900;text-decoration:none;letter-spacing:.04em}.brand-credit:hover{text-decoration:underline}
+.whatsapp-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;margin-top:12px;background:#168b50;color:#fff;text-decoration:none;font-weight:850;border-radius:999px;border:1px solid #39b978;transition:filter .2s,transform .2s}.whatsapp-link:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.popup-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.76);display:grid;place-items:center;padding:18px}.popup-backdrop[hidden]{display:none}
+.popup{position:relative;width:min(460px,100%);padding:30px 24px 24px;text-align:center;background:linear-gradient(145deg,#222329,#09090b);border:1px solid #55565e;border-radius:20px;box-shadow:0 24px 90px #000b}
+.popup-tag{color:#ff6258;font-weight:900;letter-spacing:.2em;font-size:.72rem}.popup h2{font-size:clamp(1.5rem,5vw,2rem);line-height:1.15;margin:12px 0}.popup p{color:#dedee2;line-height:1.6;margin:0 0 20px}
+.popup a{display:inline-block;padding:12px 20px;border-radius:999px;background:#ef382d;color:#fff;font-weight:900;text-decoration:none}.popup-close{position:absolute;right:12px;top:10px;width:38px;height:38px;border:1px solid #666;border-radius:50%;background:#111;color:#fff;font-size:1.35rem;cursor:pointer}
+.popup-close:focus-visible,.tab-btn:focus-visible,.catalog-btn:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #69b5ff;outline-offset:3px}
+@media(max-width:650px){.wrap{width:min(100% - 22px,1180px)}.toolbar{grid-template-columns:1fr}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.catalog-btn{padding:12px 10px;min-height:70px;gap:8px}.catalog-icon{width:34px;height:34px}.catalog-name{font-size:.8rem}.price-grid{grid-template-columns:1fr}.tabs{padding:9px;gap:7px}.tab-btn{flex-basis:calc(50% - 7px);font-size:.9rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+</style></head>
 <body>
-
-<header class="wrap">
-  <img
-    class="logo"
-    src="logo-tershop.webp"
-    alt="TERSHOP TIENDA ONLINE"
-  >
-
-  <div class="kicker">Colección de diseños</div>
-
-  <h1>Explora nuestros catálogos</h1>
-
-  <p class="sub">
-    Encuentra tu diseño favorito y accede directamente
-    a nuestros catálogos en Google Drive.
-  </p>
-</header>
-
+<header class="site-header wrap"><img class="logo" src="logo-tershop.webp" alt="TERSHOP TIENDA ONLINE" width="190" fetchpriority="high"><div class="kicker">Colección de diseños</div><h1>Explora nuestros catálogos</h1><p class="subtitle">Encuentra tu diseño favorito, consulta nuestros precios y aprende más sobre las técnicas de estampado.</p></header>
 <main class="wrap">
+<nav class="tabs panel" role="tablist" aria-label="Secciones de Tershop Online">
+<button class="tab-btn" id="tab-catalogos" type="button" role="tab" aria-selected="true" aria-controls="panel-catalogos">Catálogos</button>
+<button class="tab-btn" id="tab-costos" type="button" role="tab" aria-selected="false" aria-controls="panel-costos">Costos</button>
+<button class="tab-btn" id="tab-aprende" type="button" role="tab" aria-selected="false" aria-controls="panel-aprende">Aprende con Tershop</button></nav>
+<section class="tab-panel" id="panel-catalogos" role="tabpanel" aria-labelledby="tab-catalogos">
+<section class="panel toolbar"><label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar un catálogo..." autocomplete="off" aria-label="Buscar un catálogo"></label><div class="count" id="catalogCount" aria-live="polite">41 catálogos disponibles</div></section>
+<div class="section-head"><div><h2>Selecciona un catálogo</h2><p>Ordenados alfabéticamente · Abren en una pestaña nueva</p></div></div><section id="catalogGrid" class="catalog-grid" aria-label="Catálogos"></section></section>
+<section class="tab-panel" id="panel-costos" role="tabpanel" aria-labelledby="tab-costos" hidden>
+<section class="info-section">
+ <div class="info-intro"><span class="eyebrow">TERSHOP ONLINE · TARIFAS</span><h2>Costos de franelas con diseños</h2><p>Precios expresados en divisa.</p></div>
+ <div class="price-grid">
+  <article class="price-card"><h3>Sublimado · Diseño de catálogo</h3><p class="range">Tallas 2 hasta XL</p><div class="price-line"><span>Detal</span><strong>$6.00</strong></div><div class="price-line"><span>Mayor</span><strong>$4.20</strong></div></article>
+  <article class="price-card"><h3>Sublimado · Diseño personalizado</h3><p class="range">Tallas 2 hasta XL · Tu diseño</p><div class="price-line"><span>Detal</span><strong>$6.50</strong></div><div class="price-line"><span>Mayor</span><strong>$4.90</strong></div></article>
+  <article class="price-card"><h3>Sublimado · Diseño de catálogo</h3><p class="range">Tallas 2XXL / 3XXL</p><div class="price-line"><span>Detal</span><strong>$7.00</strong></div><div class="price-line"><span>Mayor</span><strong>$5.90</strong></div></article>
+  <article class="price-card"><h3>Sublimado · Diseño personalizado</h3><p class="range">Tallas 2XXL / 3XXL · Tu diseño</p><div class="price-line"><span>Detal</span><strong>$8.00</strong></div><div class="price-line"><span>Mayor</span><strong>$6.80</strong></div></article>
+  <article class="price-card"><h3>DTF · Diseño de catálogo</h3><p class="range">Tallas 2 hasta XL</p><div class="price-line"><span>Detal</span><strong>$7.00</strong></div><div class="price-line"><span>Mayor</span><strong>$6.34</strong></div></article>
+  <article class="price-card"><h3>DTF · Diseño personalizado</h3><p class="range">Tallas 2 hasta XL · Tu diseño</p><div class="price-line"><span>Detal</span><strong>$7.30</strong></div><div class="price-line"><span>Mayor</span><strong>$6.80</strong></div></article>
+ </div>
+ <div class="notice"><h3>Importante · Tallas 4XXL en adelante</h3><p>Los costos se calculan según la cantidad de metros de tela y el precio puede variar. Esta condición aplica únicamente para pedidos personalizados mayores a 100 unidades.</p></div>
+ <div class="notice"><h3>Diseños adicionales</h3><div class="price-line"><span>Diseño adicional de catálogo (sublimado)</span><strong>$0.60 c/u</strong></div><div class="price-line"><span>Diseño adicional personalizado (sublimado)</span><strong>$0.75 c/u</strong></div><div class="price-line"><span>Diseños adicionales en DTF</span><strong>Consultar</strong></div></div>
+ <p class="cost-contact">¿Necesitas confirmar un precio o consultar DTF? <a href="https://wa.me/message/OONJORDXA2NYA1" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>.</p>
+</section>
+</section>
+<section class="tab-panel" id="panel-aprende" role="tabpanel" aria-labelledby="tab-aprende" hidden><section class="aprende-tershop" id="aprende-con-tershop">
+    <style>
+        .aprende-tershop {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #2d3748;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .aprende-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #1a202c, #2d3748);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .aprende-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .aprende-header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .intro-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card-info {
+            background: #f7fafc;
+            border-left: 5px solid #4a5568;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .card-info h3 {
+            margin-top: 0;
+            color: #1a202c;
+            font-size: 1.2rem;
+        }
+        .card-info ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .card-info li {
+            margin-bottom: 8px;
+        }
+        .botonera-faq {
+            margin-top: 30px;
+        }
+        .faq-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            transition: all 0.3s ease;
+        }
+        .faq-btn {
+            width: 100%;
+            background: #ffffff;
+            color: #2d3748;
+            text-align: left;
+            padding: 18px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+        .faq-btn:hover {
+            background: #edf2f7;
+        }
+        .faq-btn::after {
+            content: '+';
+            font-size: 1.4rem;
+            color: #718096;
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-btn {
+            background: #edf2f7;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .faq-item.active .faq-btn::after {
+            content: '−';
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: #ffffff;
+        }
+        .faq-item.active .faq-content {
+            max-height: 1000px; /* Suficiente espacio para el texto */
+            padding: 20px;
+        }
+        .destaque-premium {
+            background: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 5px solid #dd6b20;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .tabla-comparativa {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+        .tabla-comparativa th, .tabla-comparativa td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+        .tabla-comparativa th {
+            background-color: #edf2f7;
+            color: #2d3748;
+        }
+        @media (max-width: 600px) {
+            .aprende-header h2 { font-size: 1.5rem; }
+            .faq-btn { font-size: 1rem; padding: 14px 15px; }
+        }
+    </style>
 
-  <section class="panel toolbar">
-
-    <label class="searchbox">
-      <span aria-hidden="true">⌕</span>
-
-      <input
-        id="search"
-        type="search"
-        placeholder="Buscar un catálogo..."
-        autocomplete="off"
-      >
-    </label>
-
-    <div class="count" id="catalogCount">
-      17 catálogos disponibles
+    <div class="aprende-header">
+        <h2>Aprende con TerShop</h2>
+        <p>Guía rápida y sencilla para entender nuestras telas, estampados y la calidad premium de tu compra</p>
     </div>
 
-  </section>
-
-  <div class="section-head">
-    <div>
-      <h2>Selecciona un catálogo</h2>
-      <p>Ordenados alfabéticamente</p>
+    <div class="intro-cards">
+        <div class="card-info">
+            <h3>Formatos de Estampado</h3>
+            <p>Trabajamos bajo estándares estrictos de nitidez. Todos nuestros diseños en Sublimación y DTF se manejan en un <strong>tamaño máximo Carta</strong>, garantizando la proporción ideal y excelente resolución en tu franela.</p>
+        </div>
+        <div class="card-info">
+            <h3>Calidad Tershop Garantizada</h3>
+            <p>Nuestras prendas están blindadas contra el tiempo. No se traslucen, no pierden su forma original y las costuras de los cuellos resisten años de uso diario.</p>
+        </div>
     </div>
-  </div>
 
-  <section
-    id="catalogGrid"
-    class="catalog-grid"
-    aria-label="Catálogos"
-  ></section>
+    <div class="botonera-faq">
+        <!-- PREGUNTA 1 -->
+        <div class="faq-item">
+            <button class="faq-btn">1. ¿Cuál es la diferencia entre Sublimación, DTF y los tipos de tela?</button>
+            <div class="faq-content">
+                <p>El secreto de una buena prenda está en la combinación perfecta entre la técnica de estampado y la composición del textil:</p>
+                <table class="tabla-comparativa">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Microdurazno</th>
+                            <th>Piel de Durazno</th>
+                            <th>Algodón</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Composición</strong></td>
+                            <td>100% Poliéster Premium (Fresco y Ligero).</td>
+                            <td>100% Poliéster (Más grueso y pesado).</td>
+                            <td>100% Fibra Natural Vegetal.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sublimación</strong></td>
+                            <td><strong>Excelente.</strong> Colores muy vivos y nítidos.</td>
+                            <td><strong>Excelente.</strong> Colores vibrantes de alta definición.</td>
+                            <td><strong>Mala.</strong> El color queda opaco y se cae en la primera lavada.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DTF</strong></td>
+                            <td><strong>Perfecto.</strong> Estampado flexible de gran contraste.</td>
+                            <td><strong>Perfecto.</strong> Buena adherencia sobre la textura.</td>
+                            <td><strong>Excelente.</strong> La mejor opción para esta fibra.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
+        <!-- PREGUNTA 2 -->
+        <div class="faq-item">
+            <button class="faq-btn">2. ¿Por qué elegir Microdurazno de TerShop es tu mejor decisión?</button>
+            <div class="faq-content">
+                <p>Nuestras franelas de <strong>Microdurazno Premium</strong> marcan la diferencia en el mercado por tres razones fundamentales basadas en pruebas reales a largo plazo:</p>
+                <ul>
+                    <li><strong>NO transparenta:</strong> Seleccionamos el gramaje y la densidad textil exacta para ofrecer una tela completamente opaca y segura.</li>
+                    <li><strong>Durabilidad de más de 3 años comprobada:</strong> Contamos con piezas físicas que tras 3 años de uso continuo e incontables lavadas demuestran:
+                        <ul>
+                            <li><strong>Cero decoloración:</strong> Los tonos y pigmentos siguen tan vivos como el primer día.</li>
+                            <li><strong>Cuello y costuras intactas:</strong> No ceden, no se estiran ni forman el molesto efecto "ola".</li>
+                            <li><strong>Memoria de forma:</strong> La prenda conserva su entalle original, sin deformarse hacia los lados ni encoger.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PREGUNTA 3 -->
+        <div class="faq-item">
+            <button class="faq-btn">3. ¿Por qué para el algodón funciona mejor el estampado DTF?</button>
+            <div class="faq-content">
+                <p>Al algodón le va de maravilla el <strong>DTF (Direct to Film)</strong> porque es un proceso mecánico de adherencia, no una reacción química:</p>
+                <ul>
+                    <li><strong>Base de pegamento industrial:</strong> El DTF utiliza un polvo adhesivo térmico (poliamida) que se funde en la plancha, logrando que el diseño se agarre con fuerza extrema directamente a los hilos naturales del algodón.</li>
+                    <li><strong>Flexibilidad total:</strong> Es una película ultradelgada que estira en conjunto con la prenda, manteniendo el tacto suave y la caída natural de la franela sin acartonarla.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PREGUNTA 4 -->
+        <div class="faq-item">
+            <button class="faq-btn">4. ¿Por qué no se puede sublimar sobre telas oscuras en Microdurazno?</button>
+            <div class="faq-content">
+                <p>La sublimación funciona como un gas que tiñe los hilos desde adentro, por ende:</p>
+                <ul>
+                    <li><strong>Las tintas son transparentes:</strong> No tienen cobertura propia. Si sublimas un diseño claro sobre un microdurazno oscuro o negro, el fondo de la tela absorbe la tinta y el diseño se vuelve completamente invisible.</li>
+                    <li><strong>Sin tinta blanca:</strong> Las impresoras de sublimación no aplican base blanca. El "blanco" de las imágenes lo da el fondo de la tela clara.</li>
+                </ul>
+                <div class="destaque-premium">
+                    <strong>Nuestra Solución en TerShop:</strong> Para tus pedidos en telas oscuras (como franelas negras), implementamos la técnica de <strong>DTF</strong>. Esta aplica una base sólida de tinta blanca que bloquea el fondo oscuro, logrando que tus estampados se vean nítidos, brillantes y con cero degradación lavado tras lavado.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONTROL PARA LA BOTONERA INTERACTIVA -->
+    <script>
+        document.querySelectorAll('.faq-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                
+                // Cierra los otros elementos abiertos para mantener el orden (Opcional)
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // Alterna el estado del elemento seleccionado
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+</section></section>
 </main>
-
-<footer class="wrap">
-  © <span id="year"></span>
-  <strong>TERSHOP ONLINE</strong>
-  · Catálogo digital de diseños
-</footer>
-
+<footer class="site-footer wrap"><div>© <span id="year"></span> <strong>TERSHOP ONLINE</strong> · Derechos reservados para TERSHOP ONLINE 2023.</div><div><a class="brand-credit" href="https://landirianositeoficial-pro.github.io/landirianoswebsite/" target="_blank" rel="noopener noreferrer">DESARROLLADO POR LANDIRIANOS SITE</a></div><a class="whatsapp-link" href="https://wa.me/message/OONJORDXA2NYA1" target="_blank" rel="noopener noreferrer">Volver al WhatsApp aquí ↗</a></footer>
+<div class="popup-backdrop" id="tiktokPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupDescription" hidden><div class="popup"><button class="popup-close" id="closePopup" type="button" aria-label="Cerrar ventana">×</button><div class="popup-tag">TERSHOP ONLINE</div><h2 id="popupTitle">¡Estamos en TikTok dándolo todo!</h2><p id="popupDescription">Sigue a <strong>@TERSHOPONLINE</strong>. ¡Vamos a romper!</p><a href="https://www.tiktok.com/@tershoponline" target="_blank" rel="noopener noreferrer">Seguir en TikTok ↗</a></div></div>
 <script>
-
-// CATÁLOGOS DE TERSHOP ONLINE
-
-const CATALOGS = [
-
-  {
-    name: "Catálogo Aura",
-    id: "1bY1XnP1NST4_-d4TpKDF08x5V7jsDhQu"
-  },
-
-  {
-    name: "Catálogo Caballero",
-    id: "1hFWBYi8MAR9h73q4A1H7fNEzx3s7eIRA"
-  },
-
-  {
-    name: "Catálogo Carnaval",
-    id: "1fzAeOCW_nY77IsZhLjxecKxtcrS-UaXY"
-  },
-
-  {
-    name: "Catálogo Chucherías Venezolanas",
-    id: "1hmXEQyeoknsnEQwr7H45pelgD-pEfGLl"
-  },
-
-  {
-    name: "Catálogo Día de las Madres",
-    id: "15yex68AkWUwhT9eLZrFXk5OUe8zLFnQB"
-  },
-
-  {
-    name: "Catálogo Día del Maestro",
-    id: "13F5O3k8XKWV-Ygg-_jKosCxniWmMfofa"
-  },
-
-  {
-    name: "Catálogo Día del Padre",
-    id: "1W1f9ur0bLn3RhoaDuD_FjXgEZqyym8U7"
-  },
-
-  {
-    name: "Catálogo Divina Pastora",
-    id: "1G29ro1aqsH1YGFKuGBexJmkbkC2PN4hU"
-  },
-
-  {
-    name: "Catálogo Halloween",
-    id: "1q-yT_-V9ShTO5mCcZIRC7_Q3_QwRGRaw"
-  },
-
-  {
-    name: "Catálogo José Gregorio Hernández",
-    id: "1MEiq4PJVCjSlqnMmhs7r5KBj9BVVPeBc"
-  },
-
-  {
-    name: "Catálogo Navidad",
-    id: "1nhu0DZK9a9mahTHe4jP5PqfZbzRsusPT"
-  },
-
-  {
-    name: "Catálogo para Niños",
-    id: "17cY6Xln0QZBO05znJA2K5czeP5wzKsOq"
-  },
-
-  {
-    name: "Catálogo Religioso",
-    id: "1DTh1zJsbfnytnrNDRY8MSOag_7Rp-EFX"
-  },
-
-  {
-    name: "Catálogo San Miguel",
-    id: "1Antj3zkczws1WLx2csczq9n1T8POl7_O"
-  },
-
-  {
-    name: "Catálogo Semana Santa",
-    id: "1BwUCiVlfmbGpN0gEGZFRi0bIgvzMHzh8"
-  },
-
-  {
-    name: "Catálogo Vinotinto",
-    id: "1_DdQ7qhkZWmJeojp2F4kPpuHdO44Quo8"
-  },
-
-  {
-    name: "Catálogo Virgen del Valle",
-    id: "16aw8fvFGbrCqPllhhAFu9l7SrOBbDAQE"
-  }
-
-];
-
-// NORMALIZAR TEXTO PARA EL BUSCADOR
-
-function normalize(text) {
-  return (text || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+"use strict";
+const CATALOGS = [{"name": "AURA", "url": "https://drive.google.com/drive/folders/1bY1XnP1NST4_-d4TpKDF08x5V7jsDhQu?usp=drive_link"}, {"name": "AÑO NUEVO", "url": "https://drive.google.com/file/d/1TekHJ7c4LLFU0PlFbW7Db0fHlrVvZt4D/view?usp=drivesdk"}, {"name": "CABALLERO-1", "url": "https://drive.google.com/file/d/1mNpdxExfsfPfn744FAkSUCc27c85gSDQ/view?usp=drivesdk"}, {"name": "CABALLERO-2", "url": "https://drive.google.com/file/d/1ipqkSovbcVUtOW7ZfIINbwmy2-9wRC5g/view?usp=drivesdk"}, {"name": "CARNAVAL", "url": "https://drive.google.com/file/d/1cDoQOsQ6lth2nBIg033V0yl4nJATUTKk/view?usp=drivesdk"}, {"name": "CATALOGOS INTENSAMENTE", "url": "https://drive.google.com/file/d/1Nrmj2q_E38Qyd8KJ1lnNHgHaekBSlDrL/view?usp=drivesdk"}, {"name": "CHUCHERIAS VENEZOLANAS", "url": "https://drive.google.com/file/d/1E7ClB_0BCmIkOnq8hs2F_cb3bH4xkOnd/view?usp=drivesdk"}, {"name": "DAMAS", "url": "https://drive.google.com/file/d/1l1OHAxiLQ6rh4-e9zrp2WUIErf4upbt0/view?usp=drivesdk"}, {"name": "DIA DE LAS MADRES 1", "url": "https://drive.google.com/file/d/1_SKm2Ibw_17iAWHoW6m44HkYwclHLpEX/view?usp=drivesdk"}, {"name": "DIA DE LAS MADRES 2", "url": "https://drive.google.com/file/d/1PIW2heBOhNIrGRbjyYnf7kfGzOMwWmC0/view?usp=drivesdk"}, {"name": "DIA DE LOS ENAMORADOS 1", "url": "https://drive.google.com/file/d/1E8B42WOAWt8pv0CJtME2_9kVD3YroUE_/view?usp=drivesdk"}, {"name": "DIA DE LOS ENAMORADOS 2", "url": "https://drive.google.com/file/d/1ZCwgOhzBuKYMSZi06gb_X7W3jwGuCwrL/view?usp=drivesdk"}, {"name": "DIA DEL MAESTRO", "url": "https://drive.google.com/file/d/1x-Om5H3fSR_rzZYUqzyrZUYzk9igj2iY/view?usp=drivesdk"}, {"name": "DIA DEL NIÑO", "url": "https://drive.google.com/file/d/1c7I93SkF1Yt6YuO4fQrtA-sNSVDwxAkP/view?usp=drivesdk"}, {"name": "DIA DEL PADRE 1", "url": "https://drive.google.com/file/d/1bJ4JG9SUsceOV30NXBFbrKByvIzIO2kA/view?usp=drivesdk"}, {"name": "DIA DEL PADRE 2", "url": "https://drive.google.com/file/d/1CjPXB0qD98eYNOQdxDpJM4K7nb-Bwhhr/view?usp=drivesdk"}, {"name": "DIVINA MISERICORDIA-SAGRADO CORAZON DE JESUS", "url": "https://drive.google.com/file/d/1ntulytxMrXFbVMSZ-CZIeGPP_oJOaG23/view?usp=drivesdk"}, {"name": "DIVINA PASTORA", "url": "https://drive.google.com/file/d/1YbrWjAyj5gmWsYxqq4EFbV4f3Umi-Z2t/view?usp=drivesdk"}, {"name": "K-POP HUNTERS", "url": "https://drive.google.com/file/d/12eOiBlpHIm0vDZqh0v9ZsgOZH_2IuGQd/view?usp=drivesdk"}, {"name": "LILO Y STITCH", "url": "https://drive.google.com/file/d/1vIi1-Ksffoo0eA7S5K5UQkIKgg4FQHIt/view?usp=drivesdk"}, {"name": "MUNDIAL 2026", "url": "https://drive.google.com/file/d/1_lLqoRyoVpBYqZ9BKkF0Wrim2twq46eX/view?usp=drivesdk"}, {"name": "NAVIDAD 1", "url": "https://drive.google.com/file/d/1RaUFjPfc-_Kug9XkkoQC7ifKvZFnqm6m/view?usp=drivesdk"}, {"name": "NAVIDAD 2", "url": "https://drive.google.com/file/d/1sGMGmPv2Ev8ohIFG9UAEzHnm8fp76DJm/view?usp=drivesdk"}, {"name": "NIÑAS", "url": "https://drive.google.com/file/d/1kFu0mEK8G2f3QnL1IZHt6nq3M2SLA4to/view?usp=drivesdk"}, {"name": "NIÑOS", "url": "https://drive.google.com/file/d/1VRiF0r9efipYNuV39p-ZMF_gynOtxXQz/view?usp=drivesdk"}, {"name": "PROMOCIONES ESCOLARES", "url": "https://drive.google.com/file/d/1fqkX36DVv0apiL3fhBRAp7o8MZcdIBUY/view?usp=drivesdk"}, {"name": "RELIGIOSO 1", "url": "https://drive.google.com/file/d/1kv2xzTDPndOepDoh7LKooTA5LQMCZZJ7/view?usp=drivesdk"}, {"name": "RELIGIOSO 2", "url": "https://drive.google.com/file/d/1bxEQLWeCDNEcWkVByT4f92YwnEI38zMH/view?usp=drivesdk"}, {"name": "SAN JOSÉ GREGORIO HERNÁNDEZ 2026", "url": "https://drive.google.com/file/d/1tO7bCc9e9TdrgdO-O-qXjwtGi-Ai-OXi/view?usp=drivesdk"}, {"name": "SAN MIGUEL ARCANGEL", "url": "https://drive.google.com/file/d/17VIqF2c0iEnJ39MyWe57Kj9_yUJByWud/view?usp=drivesdk"}, {"name": "SEMANA SANTA 1", "url": "https://drive.google.com/file/d/1IQ83Eb6bf7Sc3IqM6GnyAB_AcYw-HZmH/view?usp=drivesdk"}, {"name": "SEMANA SANTA 2", "url": "https://drive.google.com/file/d/1SgkOFwXsOhfbWnyoDiHVStG2mL62UGJT/view?usp=drivesdk"}, {"name": "SONIC", "url": "https://drive.google.com/file/d/1qXkyo0b1pttQhOxXN8VXMiGd9MVembJY/view?usp=drivesdk"}, {"name": "TODOS SOMOS VENEZUELA", "url": "https://drive.google.com/file/d/1KdIp9-9K35ZU5zTrXXs1DcSnaX1ZUCDl/view?usp=drivesdk"}, {"name": "VENEZUELA", "url": "https://drive.google.com/file/d/1oG8POu0iZqJB3G6CBhZSPMMX8tCPDvou/view?usp=drivesdk"}, {"name": "VINOTINTO", "url": "https://drive.google.com/file/d/1H1lDQoQFC3oSL3Tl64-E-eW2VlADwzNQ/view?usp=drivesdk"}, {"name": "VIRGEN DE COROMOTO", "url": "https://drive.google.com/file/d/1aa7a3zUE-Ynl6UWyNju0NHjcTEDUB8xr/view?usp=drivesdk"}, {"name": "VIRGEN DE LA CANDELARIA", "url": "https://drive.google.com/file/d/1fjplFEaueIcRzJpjgTXZ7DpPJUK7511F/view?usp=drivesdk"}, {"name": "VIRGEN DE LA CHIQUINQUIRA", "url": "https://drive.google.com/file/d/1N1ud4zgmW2RWTFVxlwVN7u6LgrnY3zbH/view?usp=drivesdk"}, {"name": "VIRGEN DEL CARMEN", "url": "https://drive.google.com/file/d/19r0sZyO6qqc0tuyXRLfhgh-DrBL6f0br/view?usp=drivesdk"}, {"name": "VIRGEN DEL VALLE", "url": "https://drive.google.com/file/d/1L_I8W7SB0DIe8yb7ZraX2Zg-m71tCiKm/view?usp=drivesdk"}];
+function normalize(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();}
+function renderCatalogs(){
+ const input=document.getElementById("search"),grid=document.getElementById("catalogGrid"),count=document.getElementById("catalogCount"),query=normalize(input.value);
+ const filtered=CATALOGS.filter(item=>normalize(item.name).includes(query));count.textContent=`${filtered.length} de ${CATALOGS.length} catálogos`;
+ const fragment=document.createDocumentFragment();
+ filtered.forEach(item=>{
+  const link=document.createElement("a");link.className="catalog-btn";link.href=item.url;link.target="_blank";link.rel="noopener noreferrer";
+  const icon=document.createElement("span");icon.className="catalog-icon";icon.setAttribute("aria-hidden","true");icon.textContent="▤";
+  const name=document.createElement("span");name.className="catalog-name";name.append(document.createTextNode(item.name));
+  const small=document.createElement("span");small.className="catalog-small";small.textContent="Abrir diseño en Drive ↗";name.append(small);link.append(icon,name);fragment.append(link);
+ });
+ grid.replaceChildren(fragment);if(!filtered.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="No encontramos catálogos con ese nombre.";grid.append(empty);}
 }
-
-// CONSTRUIR ENLACE DE GOOGLE DRIVE
-
-function folderUrl(id) {
-  return `https://drive.google.com/drive/folders/${id}?usp=sharing`;
-}
-
-// MOSTRAR CATÁLOGOS
-
-function renderCatalogs() {
-
-  const search = document.getElementById("search");
-
-  const grid = document.getElementById("catalogGrid");
-
-  const count = document.getElementById("catalogCount");
-
-  const query = normalize(search.value);
-
-  const filtered = CATALOGS.filter(catalog =>
-    normalize(catalog.name).includes(query)
-  );
-
-  count.textContent =
-    `${filtered.length} de ${CATALOGS.length} catálogos`;
-
-  grid.innerHTML = "";
-
-  filtered.forEach(catalog => {
-
-    const link = document.createElement("a");
-
-    link.className = "catalog-btn";
-
-    link.href = folderUrl(catalog.id);
-
-    link.target = "_blank";
-
-    link.rel = "noopener noreferrer";
-
-    link.innerHTML = `
-      <span class="catalog-icon">▤</span>
-
-      <span class="catalog-name">
-        ${catalog.name}
-
-        <span class="catalog-small">
-          Abrir diseños en Drive →
-        </span>
-      </span>
-    `;
-
-    grid.appendChild(link);
-
-  });
-
-  if (filtered.length === 0) {
-
-    grid.innerHTML = `
-      <div class="empty">
-        No encontramos catálogos con ese nombre.
-      </div>
-    `;
-
-  }
-
-}
-
-// BUSCADOR
-
-document
-  .getElementById("search")
-  .addEventListener("input", renderCatalogs);
-
-// AÑO AUTOMÁTICO
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-// INICIAR CATÁLOGO
-
-renderCatalogs();
-
-</script>
-
-</body>
-</html>
+document.getElementById("search").addEventListener("input",renderCatalogs);document.getElementById("year").textContent=new Date().getFullYear();renderCatalogs();
+const tabs=Array.from(document.querySelectorAll('[role="tab"]')),panels=Array.from(document.querySelectorAll('[role="tabpanel"]'));
+function activateTab(button,focus=false){tabs.forEach(tab=>{const selected=tab===button;tab.setAttribute("aria-selected",String(selected));tab.tabIndex=selected?0:-1;});panels.forEach(panel=>panel.hidden=panel.id!==button.getAttribute("aria-controls"));if(focus)button.focus();}
+tabs.forEach((button,index)=>{button.addEventListener("click",()=>activateTab(button));button.addEventListener("keydown",event=>{let next=index;if(event.key==="ArrowRight")next=(index+1)%tabs.length;else if(event.key==="ArrowLeft")next=(index-1+tabs.length)%tabs.length;else if(event.key==="Home")next=0;else if(event.key==="End")next=tabs.length-1;else return;event.preventDefault();activateTab(tabs[next],true);});});tabs.forEach((tab,index)=>tab.tabIndex=index===0?0:-1);
+(function(){
+ const popup=document.getElementById("tiktokPopup"),close=document.getElementById("closePopup");let seconds=0,shown=false;
+ let wasShown=false;try{wasShown=sessionStorage.getItem("tershopTikTokShown")==="1";}catch(_){}
+ function dismiss(){popup.hidden=true;}
+ close.addEventListener("click",dismiss);popup.addEventListener("click",event=>{if(event.target===popup)dismiss();});
+ document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!popup.hidden)dismiss();});
+ if(!wasShown){const timer=setInterval(()=>{if(document.visibilityState==="visible"&&!shown)seconds++;if(seconds>=30&&!shown){shown=true;clearInterval(timer);popup.hidden=false;close.focus();try{sessionStorage.setItem("tershopTikTokShown","1");}catch(_){}}},1000);}
+})();
+</script></body></html>
