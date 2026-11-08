@@ -179,11 +179,31 @@ main{padding:22px 0 48px}.panel{background:var(--panel);border:1px solid var(--l
             border-radius: 4px;
             margin-top: 15px;
         }
+        .tabla-scroll {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tabla-scroll:focus-visible {
+            outline: 3px solid #168cff;
+            outline-offset: 3px;
+        }
         .tabla-comparativa {
             width: 100%;
+            min-width: 760px;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 0;
             font-size: 0.95rem;
+        }
+        .tabla-scroll::-webkit-scrollbar { height: 8px; }
+        .tabla-scroll::-webkit-scrollbar-thumb {
+            background: #9aa4b2;
+            border-radius: 8px;
         }
         .tabla-comparativa th, .tabla-comparativa td {
             border: 1px solid #e2e8f0;
@@ -222,7 +242,8 @@ main{padding:22px 0 48px}.panel{background:var(--panel);border:1px solid var(--l
             <button class="faq-btn">1. ¿Cuál es la diferencia entre Sublimación, DTF y los tipos de tela?</button>
             <div class="faq-content">
                 <p>El secreto de una buena prenda está en la combinación perfecta entre la técnica de estampado y la composición del textil:</p>
-                <table class="tabla-comparativa">
+                <p><strong>Importante:</strong> En Tershop comercializamos únicamente tela <strong>Microdurazno y algodón</strong>. La <strong>piel de durazno</strong> aparece en este cuadro solo como referencia comparativa para explicar sus diferencias; no es una tela que ofrecemos a la venta.</p>
+                <div class="tabla-scroll" role="region" aria-label="Cuadro comparativo de telas. Desliza horizontalmente para ver todas las columnas." tabindex="0">\n                <table class="tabla-comparativa">
                     <thead>
                         <tr>
                             <th>Característica</th>
@@ -251,7 +272,7 @@ main{padding:22px 0 48px}.panel{background:var(--panel);border:1px solid var(--l
                             <td><strong>Excelente.</strong> La mejor opción para esta fibra.</td>
                         </tr>
                     </tbody>
-                </table>
+                </table>\n                </div>
             </div>
         </div>
 
@@ -321,7 +342,7 @@ main{padding:22px 0 48px}.panel{background:var(--panel);border:1px solid var(--l
     </script>
 </section></section>
 </main>
-<footer class="site-footer wrap"><div>© <span id="year"></span> <strong>TERSHOP ONLINE</strong> · Derechos reservados para TERSHOP ONLINE 2023.</div><div><a class="brand-credit" href="https://landirianositeoficial-pro.github.io/landirianoswebsite/" target="_blank" rel="noopener noreferrer">DESARROLLADO POR LANDIRIANOS SITE</a></div><a class="whatsapp-link" href="https://wa.me/message/OONJORDXA2NYA1" target="_blank" rel="noopener noreferrer">Volver al WhatsApp aquí ↗</a></footer>
+<footer class="site-footer wrap"><div>© <span id="year"></span> <strong>TERSHOP ONLINE</strong>.</div><div><a class="brand-credit" href="https://landirianositeoficial-pro.github.io/landirianoswebsite/" target="_blank" rel="noopener noreferrer">DESARROLLADO POR LANDIRIANOS SITE</a></div><a class="whatsapp-link" href="https://wa.me/message/OONJORDXA2NYA1" target="_blank" rel="noopener noreferrer">Volver al WhatsApp aquí ↗</a></footer>
 <div class="popup-backdrop" id="tiktokPopup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupDescription" hidden><div class="popup"><button class="popup-close" id="closePopup" type="button" aria-label="Cerrar ventana">×</button><div class="popup-tag">TERSHOP ONLINE</div><h2 id="popupTitle">¡Estamos en TikTok dándolo todo!</h2><p id="popupDescription">Sigue a <strong>@TERSHOPONLINE</strong>. ¡Vamos a romper!</p><a href="https://www.tiktok.com/@tershoponline" target="_blank" rel="noopener noreferrer">Seguir en TikTok ↗</a></div></div>
 <script>
 "use strict";
